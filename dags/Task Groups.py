@@ -1,13 +1,13 @@
-#Task Groups
 from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from airflow.utils.task_group import TaskGroup
 from datetime import datetime
 
-dag = DAG('task_group',
+dag = DAG(
+    'task_group',
     description='Writing DAG using TaskGroups to organize tasks',
-    schedule_interval='@hourly',
-    start_date=datetime(2025, 2, 4),
+    schedule='@daily',
+    start_date=datetime(2025, 2, 2),
     catchup=False
 )
 
@@ -21,12 +21,12 @@ end_task = DummyOperator(
     dag=dag
 )
 
-with TaskGroup("data_processing", dag=dag) as data_processing:
+with TaskGroup("data_processing") as data_processing:
     task_A = DummyOperator(task_id="task_A")
     task_B = DummyOperator(task_id="task_B")
     task_C = DummyOperator(task_id="task_C")
 
-with TaskGroup("data_validation", dag=dag) as data_validation:
+with TaskGroup("data_validation") as data_validation:
     task_X = DummyOperator(task_id="task_X")
     task_Y = DummyOperator(task_id="task_Y")
 

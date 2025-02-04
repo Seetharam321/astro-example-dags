@@ -1,12 +1,12 @@
 #Task Groups
 from airflow import DAG
-from airflow.operators.dummy_operator import DummyOperator
+from airflow.operators.dummy import DummyOperator
 from airflow.utils.task_group import TaskGroup
 from datetime import datetime
 
 dag = DAG('task_group',
     description='Writing DAG using TaskGroups to organize tasks',
-    schedule_interval='@daily',
+    schedule_interval='@hourly',
     start_date=datetime(2025, 2, 4),
     catchup=False
 )

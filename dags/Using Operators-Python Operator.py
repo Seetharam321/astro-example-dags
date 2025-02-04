@@ -9,7 +9,7 @@ def my_python_function():
 dag = DAG('python_operator_dag',
     description='A DAG with PythonOperator',
     schedule_interval='@daily',
-    start_date=datetime(2025, 2, 2),
+    start_date=datetime(2025, 2, 4),
     catchup=False
 )
 

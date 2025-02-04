@@ -11,7 +11,7 @@ dag = DAG('file_sensor',
 
 wait_for_file = FileSensor(
     task_id='wait_for_file',
-    filepath='/mnt/data/010- S3-Lambda-Dynamodb.txt',
+    filepath='/opt/airflow/dags/010- S3-Lambda-Dynamodb.txt',
     poke_interval=60,
     timeout=600,
     mode='poke',

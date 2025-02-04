@@ -8,7 +8,11 @@ def fetch_data_from_postgres():
     postgres_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
     sql = "SELECT * FROM my_table LIMIT 13;"
     result = postgres_hook.get_records(sql)
-    print(result)
+    
+    if not result:
+        print("No data found!")
+    else:
+        print(result)
 
 dag = DAG(
     'connections_example',

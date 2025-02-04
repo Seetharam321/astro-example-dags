@@ -7,7 +7,7 @@ dag = DAG(
     'task_group_dag',
     description='Organizing tasks using TaskGroups',
     schedule='@daily',
-    start_date=datetime(2025, 2, 4),
+    start_date=datetime(2025, 2, 2),
     catchup=False
 )
 

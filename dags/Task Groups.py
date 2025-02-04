@@ -4,10 +4,10 @@ from airflow.utils.task_group import TaskGroup
 from datetime import datetime
 
 dag = DAG(
-    'task_group',
-    description='Writing DAG using TaskGroups to organize tasks',
+    'task_group_dag',
+    description='Organizing tasks using TaskGroups',
     schedule='@daily',
-    start_date=datetime(2025, 2, 2),
+    start_date=datetime(2025, 2, 4),
     catchup=False
 )
 

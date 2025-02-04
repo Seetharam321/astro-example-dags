@@ -7,7 +7,7 @@ from datetime import datetime
 dag = DAG('task_group',
     description='Writing DAG using TaskGroups to organize tasks',
     schedule_interval='@daily',
-    start_date=datetime(2025, 2, 2),
+    start_date=datetime(2025, 2, 4),
     catchup=False
 )
 

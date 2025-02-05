@@ -15,15 +15,17 @@ def load_data():
     print("Loading data...")
 
 with DAG(
-    "example_dag",
-    start_date=datetime(2025, 2, 5, 12, 30),
-    schedule_interval="30 12 5 2 *",
+    "parallel_dependencies_1_30pm_to_4_30pm",
+    schedule_interval="@once",
+    start_date=datetime(2025, 2, 5, 13, 30),
+    end_date=datetime(2025, 2, 5, 16, 30),
     catchup=False
 ) as dag:
+    
     extract_task = PythonOperator(task_id="extract_data", python_callable=extract_data)
     clean_task = PythonOperator(task_id="clean_data", python_callable=clean_data)
     transform_task = PythonOperator(task_id="transform_data", python_callable=transform_data)
     load_task = PythonOperator(task_id="load_data", python_callable=load_data)
-
+    
     extract_task >> [clean_task, transform_task]
     [clean_task, transform_task] >> load_task

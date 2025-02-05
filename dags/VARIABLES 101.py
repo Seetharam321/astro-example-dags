@@ -9,7 +9,7 @@ def print_variables():
     print(f"Variable 1: {var1}, Variable 2: {var2}")
 
 with DAG(
-    "VARIABLES 101",
+    "VARIABLES_101",
     start_date=datetime(2025, 2, 5, 12, 30),
     schedule_interval="@once",
     catchup=False

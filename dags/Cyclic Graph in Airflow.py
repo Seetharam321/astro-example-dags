@@ -1,4 +1,3 @@
-#Cyclic Graph in Airflow
 from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from datetime import datetime

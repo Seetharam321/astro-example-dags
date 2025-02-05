@@ -9,13 +9,15 @@ def print_variables():
     print(f"Variable 1: {var1}, Variable 2: {var2}")
 
 with DAG(
-    "dag_with_variables",
+    "VARIABLES 101",
     start_date=datetime(2025, 2, 5, 12, 30),
     schedule_interval="@once",
     catchup=False
 ) as dag:
 
-    task = PythonOperator(
+    print_task = PythonOperator(
         task_id="print_variables",
         python_callable=print_variables
     )
+
+    print_task

@@ -1,0 +1,22 @@
+from airflow import DAG
+from airflow.operators.dummy import DummyOperator
+from airflow.utils.dates import days_ago
+
+dag = DAG(
+    'dummy_operator_ex',
+    start_date=datetime(2025,2,6,13,20)
+    schedule_interval= "20 13 6 2 *" ,
+    catchup=False
+)
+
+start = DummyOperator(
+    task_id='start',
+    dag=dag
+)
+
+end = DummyOperator(
+    task_id='end',
+    dag=dag
+)
+
+start >> end

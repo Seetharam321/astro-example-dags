@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 from datetime import datetime
 
-dag = DAG('Bash_Operator',
+dag = DAG('BashOperator',
     description='DAG with BashOperator',
     schedule_interval='@daily',
     start_date=datetime(2025, 2, 2),

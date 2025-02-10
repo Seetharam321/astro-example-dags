@@ -11,14 +11,14 @@ default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
     'start_date': days_ago(1),
-    'retries': 3,
+    'retries': 5,
     'retry_delay': timedelta(minutes=2),
 }
 
 dag = DAG(
-    'full_airflow_dag',
+    'full_airflow_dag_fixed',
     default_args=default_args,
-    description='An advanced DAG covering all Airflow features',
+    description='An advanced DAG with fixed failing task',
     schedule_interval='@daily',
     catchup=False
 )
@@ -65,15 +65,15 @@ process_odd = BashOperator(
 
 merge_task = DummyOperator(
     task_id='merge_task',
-    trigger_rule=TriggerRule.ONE_SUCCESS,
+    trigger_rule=TriggerRule.ALL_DONE,
     dag=dag
 )
 
 failing_task = BashOperator(
     task_id='failing_task',
-    bash_command="exit 1",
-    retries=2,
-    retry_delay=timedelta(seconds=30),
+    bash_command="echo 'Simulating failure, but continuing'; exit 0",
+    retries=5,
+    retry_delay=timedelta(minutes=2),
     dag=dag
 )
 

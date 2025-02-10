@@ -10,16 +10,16 @@ from datetime import timedelta
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': days_ago(1),
-    'retries': 5,
-    'retry_delay': timedelta(minutes=2),
+    'start_date': days_ago(0),
+    'retries': 3,
+    'retry_delay': timedelta(seconds=55),
 }
 
 dag = DAG(
-    'full_airflow_dag_fixed',
+    'full_airflow_dag',
     default_args=default_args,
-    description='An advanced DAG with fixed failing task',
-    schedule_interval='@daily',
+    description='DAG with all concepts',
+    schedule_interval='*/30 * * * *',
     catchup=False
 )
 
@@ -29,7 +29,7 @@ start_task = DummyOperator(
 )
 
 def fetch_data(**kwargs):
-    data = random.randint(1, 100)
+    data = random.randint(1, 69)
     kwargs['ti'].xcom_push(key='random_number', value=data)
 
 fetch_task = PythonOperator(
@@ -53,27 +53,27 @@ branch_task = BranchPythonOperator(
 
 process_even = BashOperator(
     task_id='process_even',
-    bash_command="echo 'Processing an EVEN number!'",
+    bash_command="echo 'Processing an EVEN number'",
     dag=dag
 )
 
 process_odd = BashOperator(
     task_id='process_odd',
-    bash_command="echo 'Processing an ODD number!'",
+    bash_command="echo 'Processing an ODD number'",
     dag=dag
 )
 
 merge_task = DummyOperator(
     task_id='merge_task',
-    trigger_rule=TriggerRule.ALL_DONE,
+    trigger_rule=TriggerRule.ONE_SUCCESS,
     dag=dag
 )
 
 failing_task = BashOperator(
     task_id='failing_task',
-    bash_command="echo 'Simulating failure, but continuing'; exit 0",
-    retries=5,
-    retry_delay=timedelta(minutes=2),
+    bash_command="echo 'Will be executed if not it will be failed'; exit 0",
+    retries=3,
+    retry_delay=timedelta(seconds=55),
     dag=dag
 )
 

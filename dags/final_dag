@@ -1,6 +1,6 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def task_a():
     print("Running Task A")
@@ -23,7 +23,7 @@ def task_f():
 with DAG(
     "final_dag",
     start_date=datetime(2025, 2, 12, 19, 30),
-    schedule_interval="30 19-21 * * *",
+    schedule_interval=["30 19 * * *", "30 20 * * *", "30 21 * * *"],
     catchup=False,
     tags=["Final"],
 ) as dag:

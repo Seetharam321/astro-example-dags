@@ -16,11 +16,10 @@ def task4():
 
 with DAG(
     "PD_CRON",
-    start_date=datetime(2025, 2, 12, 12, 0),
-    end_date=datetime(2025,2,12,17,0),
-    schedule_interval='0 12-17 12 2 *',
-    catchup=False
-) as dag:
+    start_date=datetime(2025, 2, 12, 16, 20),
+    schedule_interval="20 16-17 12 2 *",
+    catchup=False,
+    tags=["PD"],
 
     task1 = PythonOperator(task_id="task1", python_callable=task1)
     task2 = PythonOperator(task_id="task2", python_callable=task2)
